@@ -14,42 +14,32 @@ void exp_binaria(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
 	}
 
 	else {
-		//r = expmod(b, e/2, n);
 		mpz_fdiv_q_ui(aux, e, 2);
 		exp_binaria(r, b, aux, n);
 
-		//r = (r*r) % n;
 		mpz_mul(aux, r, r);
 		mpz_mod(aux, aux, n);
 		mpz_set(r, aux);
 
-		//if(e%2 == 1)
-		//	r = (r*b) % n;
-  		//return r;
 		mpz_mod_ui(aux, e, 2);
 		if(mpz_cmp_ui (aux, 1) == 0){
 			mpz_mul(aux, r, b);
 			mpz_mod(aux, aux, n);
 			mpz_set(r, aux);
 		}
-
   	}
-
 	mpz_clear(aux);
 }
 
 void codifica(mpz_t r, const char *str){
-	// printf("entrou codifica\n");
 	int n = strlen(str);
 	int i;
 	mpz_t aux;
 	mpz_init(aux);
 	char c='a';
 	for(i=0; i<n; i++){
-		// printf("analisando char: %c\n", str[i]);
 		mpz_ui_pow_ui(aux, 256, i);
 		mpz_mul_ui(aux, aux, str[i]);
-		// gmp_printf("esse char: %Zd\n", aux);
 		mpz_add(r, r, aux);
 	}
 
@@ -57,7 +47,6 @@ void codifica(mpz_t r, const char *str){
 }
 
 void criptografa(mpz_t C, mpz_t M, mpz_t n, mpz_t e){
-	//C=M^e (mod n)
 	exp_binaria(C, M, e, n);
 }
 
@@ -97,6 +86,5 @@ int main(){
 
 	mpz_clears(M, C, n, e, NULL);
 	
-
 	return 0;
 }
