@@ -53,18 +53,11 @@ void exp_binaria(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
 	}
 
 	else {
-		//r = expmod(b, e/2, n);
 		mpz_fdiv_q_ui(aux, e, 2);
 		exp_binaria(r, b, aux, n);
-
-		//r = (r*r) % n;
 		mpz_mul(aux, r, r);
 		mpz_mod(aux, aux, n);
 		mpz_set(r, aux);
-
-		//if(e%2 == 1)
-		//	r = (r*b) % n;
-  		//return r;
 		mpz_mod_ui(aux, e, 2);
 		if(mpz_cmp_ui (aux, 1) == 0){
 			mpz_mul(aux, r, b);
@@ -212,8 +205,6 @@ void gera_chaves(mpz_t n, mpz_t e, mpz_t d,gmp_randstate_t rnd){
 		mdc_estendido(g, x, y, n, e);
 		mpz_add_ui(e, e, 1);
 	}
-	// gmp_printf("g: %Zd\n", g);
-	// gmp_printf("e: %Zd\n", e);
 
 	//calcula phi(n)
 	mpz_t phi, aux;
@@ -226,7 +217,6 @@ void gera_chaves(mpz_t n, mpz_t e, mpz_t d,gmp_randstate_t rnd){
 
 	//calcula d - inverso de 'e' (mod phi)
 	inverso_modular(d, e, phi);
-	// gmp_printf("d: %Zd\n", d);
 
 	gmp_printf("p: %Zd\n", p);
 	gmp_printf("q: %Zd\n", q);
@@ -247,7 +237,6 @@ int main(){
 	gmp_randinit_default(rnd);
 	gmp_randseed_ui(rnd, 583092);
 	
-
 	gera_chaves(n, e, d,rnd);
 
 	mpz_clears(n, d, e, NULL);
