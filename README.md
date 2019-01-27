@@ -1,2 +1,3 @@
 # RSA_Criptography
-C code for encrypting and decrypting messages based on RSA
+
+Generates RSA private and public keys with the size of your choice. Encrypts and decrypts messages.
