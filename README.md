@@ -1,21 +1,21 @@
 # RSA_Criptography
 
-Generates RSA private and public keys with the size of your choice. Encrypts and decrypts messages.
+Generates RSA private and public keys with 2048 bits. Encrypts and decrypts messages.
 It makes use of the GMP library. The GMP library allows you to work with numbers as large and precise as you like in C language. 
 
 ## Installing GMP
  Download it from https://gmplib.org/
  After extracting, navigate to the gmp directory
  run 
- '''
+ ```
  	./configure
 	make
 	make check
 	make install
-'''
+```
 
 This will take a while but not much
-After installing GMP, navigate to the cloned repository and run ''' make '''
+After installing GMP, navigate to the cloned repository and run ``` make ```
 
 
 ## Generating private and public keys
