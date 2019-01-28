@@ -10,10 +10,10 @@ It makes use of the GMP library. The GMP library allows you to work with numbers
  
  ``` 
  ./configure
-	make
-	make check
-	make install 
-	```
+make
+make check
+make install 
+```
 
 
 This will take a while but not much.
