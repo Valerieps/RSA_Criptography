@@ -219,9 +219,10 @@ void keygen(gmp_randstate_t rnd){
 	// Uncomment for verbose mode
 	// gmp_printf("prime number 1: %Zd\n", p);
 	// gmp_printf("prime number 2: %Zd\n", q);
-	// gmp_printf("Public Key (prime 1 x prime 2): %Zd\n", n);
-	// gmp_printf("exponent: %Zd\n", e);
-	// gmp_printf("Private Key: %Zd\n", d);
+	gmp_printf("======================================");
+	gmp_printf("=== Public Key long number ===\n%Zd\n", n);
+	gmp_printf("=== Public Key short number ===\n%Zd\n", e);
+	gmp_printf("=== Private Key===\n%Zd\n", d);
 
 	FILE *filePublic = fopen("publicKey", "w");
 	mpz_out_str(filePublic, 10, n);

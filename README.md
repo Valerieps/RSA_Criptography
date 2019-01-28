@@ -24,6 +24,8 @@ After installing GMP, navigate to the cloned repository and run ``` make ```
 The keygen.out code generates 2048 bit keys in C language. When you run keygen.out, two text files will be generated with the each key. Note that the publicKey is composed of two distinct numbers. 
 
 
-## Encrypting
-The message to be encrypted has to be inputed to the terminal, so you can either type it directly or passed to the code from a file. Ex:
-message.txt > encrypt.out
+## Encryption
+The encryption.out receives three inputs from the command line: the public Key of the receiver(composed of two numbers) and the message. The encrypted message will be printed both to screen and a to a text file.
+
+
+## Decryption

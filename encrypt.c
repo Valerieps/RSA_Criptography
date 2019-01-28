@@ -3,7 +3,7 @@
 #include <string.h>
 #include <gmp.h>
 
-void exp_binaria(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
+void binary_exp(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
 	
 	mpz_t aux;
 	mpz_init(aux);
@@ -15,7 +15,7 @@ void exp_binaria(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
 
 	else {
 		mpz_fdiv_q_ui(aux, e, 2);
-		exp_binaria(r, b, aux, n);
+		binary_exp(r, b, aux, n);
 
 		mpz_mul(aux, r, r);
 		mpz_mod(aux, aux, n);
@@ -31,7 +31,7 @@ void exp_binaria(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
 	mpz_clear(aux);
 }
 
-void codifica(mpz_t r, const char *str){
+void encodes(mpz_t r, const char *str){
 	int n = strlen(str);
 	int i;
 	mpz_t aux;
@@ -46,8 +46,8 @@ void codifica(mpz_t r, const char *str){
 	mpz_clear(aux);
 }
 
-void criptografa(mpz_t C, mpz_t M, mpz_t n, mpz_t e){
-	exp_binaria(C, M, e, n);
+void encrypts(mpz_t C, mpz_t M, mpz_t n, mpz_t e){
+	binary_exp(C, M, e, n);
 }
 
 int main(){
@@ -56,33 +56,28 @@ int main(){
 	mpz_t C, M, n, e;
 	mpz_inits(C, M, n, e, NULL);
 	
-	//==== RECEBE CHAVE PÚBLICA ===
+	// Gets inputs
 	char num[1000000];
+	gmp_printf("Please, input the LONG number from public Key: ");
 	scanf("%s", num);
 	getchar();
-	mpz_set_str(n, num, 10);
-	gmp_printf("n: %Zd\n", n);
 
 	char exp[10000];
+	gmp_printf("Please, input the SHORT number from public Key: ");
 	scanf("%s", exp);
 	getchar();
-	mpz_set_str(e, exp, 10);
-	gmp_printf("e: %Zd\n", e);
 
-
-	//==== RECEBE MSG DO USUARIO===
+	gmp_printf("Message: ", n);
 	fgets(msg, 500, stdin);
-	printf("msg: %s\n", msg);
 	
-	// //== 1) CODIFICA ================
-	codifica(M, msg);
-	gmp_printf("msg codificada: %Zd\n", M);
 
-
-	// //== 2) CRIPTOGRAFA ===============
-	criptografa(C, M, n, e);
-	gmp_printf("msg criptografada: %Zd\n", C);
+	encodes(M, msg);
+	encrypts(C, M, n, e);
+	gmp_printf("=== Encrypted message===\n%Zd\n", C);
 	
+	FILE *fileEncrypted = fopen("encryptedMessage", "w");
+	mpz_out_str(fileEncrypted, 10, C);
+	fclose(fileEncrypted)
 
 	mpz_clears(M, C, n, e, NULL);
 	
