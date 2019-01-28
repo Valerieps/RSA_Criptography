@@ -8,10 +8,12 @@ It makes use of the GMP library. The GMP library allows you to work with numbers
 
  After extracting, navigate to the gmp directory and run:
  
- ``` ./configure
+ ``` 
+ ./configure
 	make
 	make check
-	make install ```
+	make install 
+	```
 
 
 This will take a while but not much.
