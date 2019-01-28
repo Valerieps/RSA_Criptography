@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <gmp.h>
 
-void exp_binaria(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
+void binary_exp(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
 	
 	mpz_t aux;
 	mpz_init(aux);
@@ -14,7 +14,7 @@ void exp_binaria(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
 
 	else {
 		mpz_fdiv_q_ui(aux, e, 2);
-		exp_binaria(r, b, aux, n);
+		binary_exp(r, b, aux, n);
 
 		mpz_mul(aux, r, r);
 		mpz_mod(aux, aux, n);
@@ -33,11 +33,11 @@ void exp_binaria(mpz_t r, const mpz_t b, const mpz_t e, const mpz_t n){
 }
 
 
-void descriptografa(mpz_t M, const mpz_t C, const mpz_t n, const mpz_t d){
-	exp_binaria(M, C, d, n);
+void decrypts(mpz_t M, const mpz_t C, const mpz_t n, const mpz_t d){
+	binary_exp(M, C, d, n);
 }
 
-char* decodifica(const mpz_t n){
+char* decodes(const mpz_t n){
 
 	char *str = (char*) malloc(501*sizeof(char));
 	unsigned int i, letra;
@@ -82,27 +82,25 @@ int main(){
 	
 	
 	char num[1000000];
+	gmp_printf("Please, input the LONG number from public Key: ");
 	scanf("%s", num);
 	mpz_set_str(n, num, 10);
-	gmp_printf("n: %Zd\n", n);
 
 	char chave[10000];
+	gmp_printf("Please, input the private Key: ");
 	scanf("%s", chave);
 	mpz_set_str(d, chave, 10);
 	gmp_printf("d: %Zd\n", d);
 
 	char msg[1000000];
+	gmp_printf("Message: ");
 	scanf("%s", msg);
 	mpz_set_str(C, msg, 10);
-	gmp_printf("msg lida: %Zd\n", C);	
 
-	//== 1) DESCRIPTOGRAFA ===============
-	descriptografa(M, C, n, d);
-	gmp_printf("M: %Zd\n", M);
 
-	//== 2) DECODIFICA ===============
+	decrypts(M, C, n, d);
 	char *msg2=(char*) malloc(501*sizeof(char));
-	msg2 = decodifica(M);
+	msg2 = decodes(M);
 
 	puts(msg2);
 

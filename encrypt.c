@@ -77,7 +77,7 @@ int main(){
 	
 	FILE *fileEncrypted = fopen("encryptedMessage", "w");
 	mpz_out_str(fileEncrypted, 10, C);
-	fclose(fileEncrypted)
+	fclose(fileEncrypted);
 
 	mpz_clears(M, C, n, e, NULL);
 	
